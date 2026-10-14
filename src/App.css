@@ -1,0 +1,44 @@
+:root {
+    --fond: #D9CDCA;
+    --texte: #1a1a1a;
+    --bandeau: #b3261e;
+}
+
+[data-theme="dark"] {
+    --fond: #262626;
+    --texte: #eaeaea;
+    --bandeau: #7a1a15;
+}
+
+
+.footer{
+    background-color: red;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    min-height: 80px;
+}
+
+.header{
+    background-color: rebeccapurple;
+    text-align: left;
+    align-items: center;
+    justify-content: left;
+    display: flex;
+    flex-direction: line;
+    min-height: 30px;
+     box-sizing: border-box; 
+
+}
+.header button{
+    margin-left: auto;
+    margin-right: 5px;
+}
+body{
+    background-color: var(--fond);
+    color: var(--texte);
+    margin:0;
+}
