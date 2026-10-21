@@ -198,7 +198,7 @@ const App = () => {
   
   return(
   <>
-    <BrowserRouter>
+    <BrowserRouter basename="/HominideWebSite-React-">
     <DataContext.DonneesProvider>
       <Header />
       <nav>
