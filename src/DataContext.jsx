@@ -50,10 +50,10 @@ export const DonneesProvider = ({ children }) => {
 
     const especesAvecDates = especes.dataFetch
     .map((e) => {
-    const perso = donneesEspeces.find((d) => d.oid === e.oid);
-    if (!perso) return null;            // espèce absente de ton tableau : on l'écarte
+      const perso = donneesEspeces.find((d) => d.oid === e.oid);
+      if (!perso) return null;            // espèce absente de ton tableau : on l'écarte
 
-    return { ...e, fea: perso.debut, lla: perso.fin };
+      return { ...e, fea: perso.debut, lla: perso.fin };
     }) 
     .filter(Boolean);
 

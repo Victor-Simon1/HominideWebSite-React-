@@ -42,7 +42,7 @@ export const CarteFossiles = ({fossiles,couleurs}) => {
       center={[20, 0]}
       zoom={2}
       preferCanvas={true}
-      style={{ height: "500px", width: "100%" }}
+      style={{ height: "500px", width: "80%" }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

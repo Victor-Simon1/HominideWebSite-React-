@@ -7,10 +7,10 @@ import * as DataContext from "./DataContext"
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
-import {useState,useEffect,createContext } from "react";
+import {useState,Fragment ,useEffect,createContext } from "react";
 
 
-const SectionPliable = ({ titre, ouvertAuDepart = true, children }) => {
+const SectionPliable = ({ titre, ouvertAuDepart = true, children ,className}) => {
   const [ouvert, setOuvert] = useState(ouvertAuDepart);
 
   return (
@@ -18,7 +18,7 @@ const SectionPliable = ({ titre, ouvertAuDepart = true, children }) => {
       <h1 onClick={() => setOuvert(!ouvert)} style={{ cursor: "pointer" }}>
         {ouvert ? "▼" : "▶"} {titre}
       </h1>
-      {ouvert && children}
+      {ouvert && <div className={className}>{children}</div>}
     </section>
   );
 };
@@ -54,8 +54,8 @@ const Body = () => {
   });
   const donneesGraphique = especes
   .map((d) => ({
-    nom: d.nom,
-    periode: [d.fin, Math.max(d.debut, d.fin + 0.01)],
+    nom: d.nam,
+    periode: [d.lla, Math.max(d.fea, d.lla + 0.01)],
     couleur: couleurs[d.oid] ?? "#888",
   }))
   .sort((a, b) => b.periode[1] - a.periode[1]);
@@ -69,13 +69,17 @@ const Body = () => {
     <SectionPliable 
     titre={"L'évolution de la famille des Hominines"} 
     children={<Graphic.GraphiqueTemps donnees={donneesGraphique} />}
+    className={"graphics"}
     />
     <SectionPliable 
     titre={"La carte de la famille des Hominines"} 
-    children={<>
-        <Map.CarteFossiles fossiles={fossilesVisibles} couleurs={couleurs} />;
+    children={
+      <>
+        <Map.CarteFossiles fossiles={fossilesVisibles} couleurs={couleurs} />
         <Map.Legende especes={especes} couleurs={couleurs} masquees={masquees} onToggle={basculer}/>
-    </>}
+      </>
+    }
+    className={"carte"}
     />
   </>
  );
@@ -147,22 +151,47 @@ const Footer = () => {
 };
 
 const PageEspece = () => {
+  const { especes,fossiles,isLoading,isError} = DataContext.useDonnees();
   const { nom } = useParams();
+
+  if(isLoading)
+    return <p></p>
+  const spacie =  especes.find(item => item.nam == nom);
+  if(!spacie)
+    return <p>Espece introuvable</p>
+
+  const spacieFossile = fossiles.filter((f) => f.tid === spacie.oid);
+  console.log(spacie)
+
   return (
-    <p>voici les fossiles de {nom} </p>
+    <>
+      <p>voici les fossiles de {nom} </p>
+      <ul>
+        {spacieFossile.map((f) => (
+          <li key={f.oid}>
+            <img
+            src={`https://flagcdn.com/w20/${f.cc2.toLowerCase()}.png`}
+            alt={f.cc2}
+            width="20"
+            /> 
+            : entre {f.lag} et {f.eag} Ma</li>
+        ))}
+      </ul>
+    </>
   );
+
 }
 const Spacies = () => {
   const { especes,fossiles,isLoading,isError} = DataContext.useDonnees();
   if(isLoading) return null;
   return(
-      especes.map((e) => (
-        <>
-          <Link key={e.oid} to={`/espece/${encodeURIComponent(e.nam)}`}>
+      especes.map((e) => (     
+        <Fragment  key={e.oid}>
+          <Link  to={`/espece/${encodeURIComponent(e.nam)}`}>
             {e.nam}
           </Link> |{" "}
-          </>
-          ))
+        </Fragment >
+        ))
   );
 }
 const App = () => {
