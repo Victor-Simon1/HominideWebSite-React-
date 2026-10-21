@@ -198,7 +198,7 @@ const App = () => {
   
   return(
   <>
-    <BrowserRouter basename="/HominideWebSite-React-">
+    <HashRouter  >
     <DataContext.DonneesProvider>
       <Header />
       <nav>
@@ -213,7 +213,7 @@ const App = () => {
       
       <Footer />
       </DataContext.DonneesProvider>
-    </BrowserRouter>
+    </HashRouter >
   </>
   );
 };
