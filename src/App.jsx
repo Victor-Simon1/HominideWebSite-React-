@@ -4,7 +4,7 @@ import * as NightMode from "./NightMode"
 import * as Graphic from "./Graphic"
 import * as Map from "./Map"
 import * as DataContext from "./DataContext"
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import {useState,Fragment ,useEffect,createContext } from "react";
