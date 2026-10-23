@@ -2,28 +2,32 @@
     --fond: #D9CDCA;
     --texte: #1a1a1a;
     --bandeau: #b3261e;
+    --accent: #6a3fa0;
 }
 
 [data-theme="dark"] {
     --fond: #262626;
     --texte: #eaeaea;
     --bandeau: #7a1a15;
+    --accent: #a98be0;
 }
 
+.liste-especes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
 
-.footer{
-    background-color: red;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    min-height: 80px;
+.espece {
+  background: var(--carte);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
 .header{
-    background-color: rebeccapurple;
+    background-color: var(--accent);
+    color: white;
     text-align: left;
     align-items: center;
     justify-content: left;
@@ -36,15 +40,6 @@
 .header button{
     margin-left: auto;
     margin-right: 5px;
-}
-.header p{
-     margin-right: auto;
-    margin-left: 5px;
-}
-body{
-    background-color: var(--fond);
-    color: var(--texte);
-    margin:0;
 }
 .carte{
       max-width: 1600px;
@@ -62,3 +57,105 @@ body{
     justify-content: center;
     flex-direction: column;
 }
+.header p{
+     margin-right: auto;
+    margin-left: 5px;
+}
+
+.curseur-temps{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.menu-especes {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-bouton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent, #6a3fa0);
+  color: white;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.15s;
+}
+.menu-bouton:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.menu-bouton:active {
+  transform: scale(0.97);
+}
+
+.menu-liste {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 2000;               /* au-dessus de la carte Leaflet */
+  min-width: 260px;
+  max-height: 320px;
+  overflow-y: auto;            /* défilement si la liste est longue */
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--carte, white);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.menu-liste a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--texte);
+  text-decoration: none;
+}
+.menu-liste a:hover {
+  background: var(--accent, #6a3fa0);
+  color: white;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    background-color: var(--fond);
+    color: var(--texte);
+    margin:0;
+}
+
+footer{
+    background-color: var(--accent);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  
+    
+    position: relative;
+    width: 100%;
+    bottom: 0;
+}
+h1, h2 { line-height: 1.2; }
+
+input, select, button {
+  padding: 8px 12px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font: inherit;
+}
+
+section > h1 { cursor: pointer; padding: 8px 0; }
+section > h1:hover { color: var(--accent); }

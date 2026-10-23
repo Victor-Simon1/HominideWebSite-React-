@@ -4,6 +4,7 @@ import * as NightMode from "./NightMode"
 import * as Graphic from "./Graphic"
 import * as Map from "./Map"
 import * as DataContext from "./DataContext"
+import * as Bouton from "./Bouton"
 import { HashRouter, Routes, Route, Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
@@ -65,6 +66,7 @@ const Body = () => {
     <SectionPliable 
     titre={"Family"} 
     children={<DifferentFamily especesAvecDates={especes} fossilesParEspece={fossilesParEspece}/>}
+    className={"liste-espece"}
     />
     <SectionPliable 
     titre={"L'évolution de la famille des Hominines"} 
@@ -117,7 +119,7 @@ const DifferentFamily = ({especesAvecDates = [],fossilesParEspece = []}) => {
     <p>{resultat.length} espèce{resultat.length > 1 ? "s" : ""} affichée{resultat.length > 1 ? "s" : ""}</p>
     {
     resultat.map((e) => (
-      <section key={e.oid}>
+      <section className ="espece"key={e.oid}>
         <h2>{e.nam}</h2>
         <ul>
           <li>Début : {e.fea} Ma</li>
@@ -136,17 +138,17 @@ const DifferentFamily = ({especesAvecDates = [],fossilesParEspece = []}) => {
 const Header = () =>{
   return ( 
     <div className="header">
-      <p>En apprendre plus sur les espéces disparu</p>
+      <p>En apprendre plus sur les Hominidés</p>
        <NightMode.BoutonTheme/>
     </div>
   );
 }
 const Footer = () => {
   return (
-    <div className="footer">
+    <footer>
       <p>Crée par Victor SIMON<br />
       Data prise sur <a href="https://paleobiodb.org/#/" >paleobiodb.org</a> et sur Wikipedia</p>
-    </div>
+    </footer>
   );
 };
 
@@ -185,13 +187,23 @@ const Spacies = () => {
   const { especes,fossiles,isLoading,isError} = DataContext.useDonnees();
   if(isLoading) return null;
   return(
-      especes.map((e) => (     
+     <select
+      aria-label="Choisir une espèce"
+      value=""
+      onChange={(ev) => navigate(`/espece/${encodeURIComponent(ev.target.value)}`)}
+    >
+      <option value="" disabled>Choisir une espèce…</option>
+      {especes.map((e) => (
+        <option key={e.oid} value={e.nam}>{e.nam}</option>
+      ))}
+    </select>
+      /*especes.map((e) => (     
         <Fragment  key={e.oid}>
           <Link  to={`/espece/${encodeURIComponent(e.nam)}`}>
             {e.nam}
           </Link> |{" "}
         </Fragment >
-        ))
+        ))*/
   );
 }
 const App = () => {
@@ -203,7 +215,7 @@ const App = () => {
       <Header />
       <nav>
         <Link to="/">Accueil</Link> |{" "}
-        <Spacies />
+        <Bouton.MenuEspeces  />
       </nav>
       
         <Routes>
